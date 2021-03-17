@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // Import Routes
-// const authRoute = require('./routes/auth');
+ const authRoute = require('./routes/auth.routes');
 // const personelRoute = require('./routes/personel.routes');
 
 dotenv.config();
@@ -21,6 +21,7 @@ mongoose.connect(
 
 //Middleware
 app.use(express.json());
+app.use(bodyParser.json())
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -34,5 +35,7 @@ app.use(bodyParser.json())
 
 app.listen(3000,() => console.log('Server Up and running'));
 
-require('./routes/user.routes')(app);
-require('./routes/personel.routes')(app);
+app.use('/api/user',authRoute);
+
+//  require('./routes/auth.routes')(app);
+// require('./routes/personel.routes')(app);
